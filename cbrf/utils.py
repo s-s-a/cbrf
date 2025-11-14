@@ -9,7 +9,7 @@ def date_to_str(date: datetime.datetime) -> str:
     :return:        date str in right format
     :rtype:         str
     """
-    return "{}".format(date.strftime("%d/%m/%Y")) if date else ""
+    return f'{date.strftime("%d/%m/%Y") if date else ""}'
 
 
 def str_to_date(date: str) -> datetime.datetime:
@@ -20,7 +20,7 @@ def str_to_date(date: str) -> datetime.datetime:
     :return:        date like datetime
     :rtype:         datetime
     """
-    date = date.split(".")
-    date.reverse()
-    y, m, d = date
+    date_parts = date.split(".")
+    date_parts.reverse()
+    y, m, d = date_parts
     return datetime.datetime(int(y), int(m), int(d))

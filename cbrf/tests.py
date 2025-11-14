@@ -15,13 +15,14 @@ from cbrf.models import (
     DynamicCurrencyRecord,
 )
 
+C_INFO_LEN = 83
 
 class CbrfAPITestCase(TestCase):
     def test_currencies_info(self):
         cur_inf = get_currencies_info()
 
         self.assertIsInstance(cur_inf, Element)
-        self.assertEqual(len(cur_inf), 70)
+        self.assertEqual(len(cur_inf), C_INFO_LEN)
 
     def test_get_daily_rate(self):
         date = datetime(2014, 10, 24)
@@ -50,7 +51,7 @@ class CbrfAPIAsyncTestCase(IsolatedAsyncioTestCase):
         cur_inf = await cbrf_asyncio.get_currencies_info()
 
         self.assertIsInstance(cur_inf, Element)
-        self.assertEqual(len(cur_inf), 70)
+        self.assertEqual(len(cur_inf), C_INFO_LEN)
 
     async def test_get_daily_rate_async(self):
         date = datetime(2014, 10, 24)
@@ -108,7 +109,7 @@ class CbrfModelsTestCase(TestCase):
 
     def test_currencies_info(self):
         c_info = CurrenciesInfo()
-        self.assertEqual(len(c_info.currencies), 70)
+        self.assertEqual(len(c_info.currencies), C_INFO_LEN)
 
         irish_pound_id = "R01305"
         irish_pound = c_info.get_by_id(irish_pound_id)
@@ -184,7 +185,7 @@ class CbrfAsyncModelsTestCase(IsolatedAsyncioTestCase):
 
     async def test_currencies_info(self):
         c_info = await cbrf_asyncio.CurrenciesInfo().create()
-        self.assertEqual(len(c_info.currencies), 70)
+        self.assertEqual(len(c_info.currencies), 83)
 
         irish_pound_id = "R01305"
         irish_pound = c_info.get_by_id(irish_pound_id)
